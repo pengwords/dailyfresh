@@ -1,6 +1,14 @@
 {% extends 'base_foot.html' %}
 {% block js %}
+    <script>
 
+    {#function search() {#}
+    {#     cont = $('.input_text').val();#}
+    {#    $.get("/search"+"/"+'?'+"q="+cont,function (data) {#}
+    {#        alert(55);#}
+    {#    });#}
+
+    </script>
 {% endblock js %}
 {% block body%}
     {% block title %}
@@ -34,10 +42,12 @@
 	</div>
          <div class="search_bar clearfix">
 		<a href="/" class="logo fl"><img src="/static/images/logo.png"/></a>
-{#		<div class="sub_page_name fl">|&nbsp;&nbsp;&nbsp;&nbsp;用户中心</div>#}
 		<div class="search_con fr">
-			<input type="text" class="input_text fl" name="" placeholder="搜索商品">
-			<input type="button" class="input_btn fr" name="" value="搜索">
+            <form action="/search/" method="get" target="_blank">
+			    <input type="text" class="input_text fl" name="q" placeholder="搜索商品">
+			    <input type="submit" class="input_btn fr" name=""   value="搜索">
+            </form>
+
 		</div>
 	</div>
     {% endblock title %}

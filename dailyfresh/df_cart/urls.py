@@ -7,4 +7,5 @@ urlpatterns = [
     re_path(r'^edit(\d+)_(\d+)/$',views.edit),
     re_path(r'^delete_(\d+)/$',views.delete),
     re_path(r'^order/$',views.order),
+    re_path(r'/order(\w?)$',views.order)
 ]

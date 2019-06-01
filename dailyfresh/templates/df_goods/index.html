@@ -39,7 +39,7 @@
 			<ul class="points"></ul>
 		</div>
 		<div class="adv fl">
-			<a href="#"><img src="/static/images/adv01.jpg"></a>
+			<a href="/list{{ c.id }}_1_1"><img src="/static/images/adv01.jpg"></a>
 			<a href="#"><img src="/static/images/adv02.jpg"></a>
 		</div>
 	</div>
@@ -54,9 +54,9 @@
                 {% endfor %}
 
 			</div>
-{#        {% for c in types %}#}
-			<a href="#" class="goods_more fr" id="fruit_more">查看更多 ></a>
-{#		{% endfor %}#}
+
+			<a href="/list1_1_1" class="goods_more fr" id="fruit_more">查看更多 ></a>
+
         </div>
 
 		<div class="goods_con clearfix">
@@ -84,7 +84,7 @@
                 {% endfor %}
 
 			</div>
-			<a href="#" class="goods_more fr">查看更多 ></a>
+			<a href="/list2_1_1" class="goods_more fr">查看更多 ></a>
 		</div>
 
 		<div class="goods_con clearfix">
@@ -97,11 +97,10 @@
                     <div class="prize">￥{{ g.gprice }}</div>
                 </li>
                 {% endfor %}
-
 			</ul>
 		</div>
 	</div>
-
+{# 未填充数据部分 #}
 	<div class="list_model">
 		<div class="list_title clearfix">
 			<h3 class="fl" id="model03">猪牛羊肉</h3>

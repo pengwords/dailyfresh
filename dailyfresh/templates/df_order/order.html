@@ -1,4 +1,26 @@
 {% extends 'base.html' %}
+{% block head %}
+    <script>
+    $(function () {
+        total1=0;//商品总个数
+        total2=0;//商品总金额
+        $('.col07').each(function () {
+            count = parseInt($(this).prev().text());
+            price = parseFloat($(this).prev().prev().text());
+            total = count*price;
+            $(this).text(total.toFixed(2)+'元');
+            total1++;
+            total2+=total;
+        });
+        $("#totalmoney").text(total2.toFixed(2)+'元');
+        $("#moneys").text((total2+10).toFixed(2)+'元');
+
+    });
+    function go_handel() {
+            alert('ok');
+        }
+    </script>
+{% endblock head %}
 {% block content %}
 <body>
 	
@@ -7,9 +29,9 @@
 	<div class="common_list_con clearfix">
 		<dl>
 			<dt>寄送到：</dt>
-			<dd><input type="radio" name="" checked="">北京市 海淀区 东北旺西路8号中关村软件园 （李思 收） 182****7528</dd>
+            <dd><input type="radio" name="" checked="">{{ user.uaddress  }}   <em style="color: red;margin-left: 20px">{{ user.ushow }}</em>   <em style="color: cyan;size: 30px;margin-left: 20px">{{ user.uphone }}</em>     (收)</dd>
 		</dl>
-		<a href="user_center_site.html" class="edit_site">编辑收货地址</a>
+		<a href="/user/site/" class="edit_site">编辑收货地址</a>
 
 	</div>
 	
@@ -37,63 +59,33 @@
 			<li class="col04">数量</li>
 			<li class="col05">小计</li>		
 		</ul>
-		<ul class="goods_list_td clearfix">
-			<li class="col01">1</li>			
-			<li class="col02"><img src="images/goods/goods012.jpg"></li>
-			<li class="col03">奇异果</li>
-			<li class="col04">500g</li>
-			<li class="col05">25.80元</li>
-			<li class="col06">1</li>
-			<li class="col07">25.80元</li>	
+        {% for cart in carts %}
+		<ul class="goods_list_td clearfix " id="{{ cart.id }}">
+			<li class="col01">{{ forloop.counter }}</li>
+			<li class="col02"><img src="/static/{{ cart.goods.gpic }}"></li>
+			<li class="col03">{{ cart.goods.gtitle }}</li>
+			<li class="col04">{{ cart.goods.gunit }}</li>
+			<li class="col05">{{ cart.goods.gprice }}元</li>
+			<li class="col06">{{ cart.count }}</li>
+			<li class="col07">{% widthratio cart.count 1 cart.goods.gprice %}</li>
 		</ul>
-		<ul class="goods_list_td clearfix">
-			<li class="col01">2</li>			
-			<li class="col02"><img src="images/goods/goods003.jpg"></li>
-			<li class="col03">大兴大棚草莓</li>
-			<li class="col04">500g</li>
-			<li class="col05">16.80元</li>
-			<li class="col06">1</li>
-			<li class="col07">16.80元</li>	
-		</ul>
+
+        {% endfor %}
+
 	</div>
 
 	<h3 class="common_title">总金额结算</h3>
 
 	<div class="common_list_con clearfix">
 		<div class="settle_con">
-			<div class="total_goods_count">共<em>2</em>件商品，总金额<b>42.60元</b></div>
+			<div class="total_goods_count">共<em>{{ carts.count }}</em>件商品，总金额<b id="totalmoney"></b></div>
 			<div class="transit">运费：<b>10元</b></div>
-			<div class="total_pay">实付款：<b>52.60元</b></div>
+			<div class="total_pay">实付款：<b id="moneys"></b></div>
 		</div>
 	</div>
 
 	<div class="order_submit clearfix">
-		<a href="javascript:;" id="order_btn">提交订单</a>
-	</div>	
-
-
-
-	<div class="popup_con">
-		<div class="popup">
-			<p>订单提交成功！</p>
-		</div>
-		
-		<div class="mask"></div>
+		<a href="javascript:go_handel();" id="order_btn">提交订单</a>
 	</div>
-	<script type="text/javascript" src="js/jquery-1.12.2.js"></script>
-	<script type="text/javascript">
-		$('#order_btn').click(function() {
-			localStorage.setItem('order_finish',2);
 
-			$('.popup_con').fadeIn('fast', function() {
-
-				setTimeout(function(){
-					$('.popup_con').fadeOut('fast',function(){
-						window.location.href = 'index.html';
-					});	
-				},3000)
-				
-			});
-		});
-	</script>
 {% endblock content %}

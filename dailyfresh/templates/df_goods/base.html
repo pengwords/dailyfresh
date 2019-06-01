@@ -1,7 +1,9 @@
 {% extends 'base_foot.html' %}
-{% block head %}
+{% block js %}
+<script>
 
-{% endblock head %}
+</script>
+{% endblock js %}
 
 {% block body %}
 {% block tt %}
@@ -40,11 +42,12 @@
 		<a href="/" class="logo fl"><img src="/static/images/logo.png"></a>
 		<div class="search_con fl">
 			<input type="text" class="input_text fl" name="" placeholder="搜索商品">
-			<input type="button" class="input_btn fr" name="" value="搜索">
+			<input type="button" class="input_btn fr" name=""  onclick="search()" value="搜索">
+
 		</div>
 		<div class="guest_cart fr">
 			<a href="/cart" class="cart_name fl">我的购物车</a>
-			<div class="goods_count fl"> 2</div>
+			<div class="goods_count fl"> {{ cart.count }}</div>
 		</div>
 	</div>
 {% endblock tt %}

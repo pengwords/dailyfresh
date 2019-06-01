@@ -18,7 +18,7 @@ def order(request):
     get = request.GET
     cart_ids = get.getlist('cart_id')
     cart_ids1 = [int(item) for item in cart_ids]
-    carts = CartInfo.objects.filter(goods__cartinfo__user_id__in=cart_ids1)
+    carts = CartInfo.objects.filter(id__in=cart_ids1)
     # 构造传递到模板的数据
     context = {
         'title': '提交订单',

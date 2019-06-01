@@ -32,8 +32,8 @@ def index(request):
 
 
 def list(request, tid, pindex, sort):
-    typeinfo = TypeInfo.objects.get(pk=int(tid))
-    news = typeinfo.goodsinfo_set.order_by('-id')[0:2]
+    typeinfo = TypeInfo.objects.get(pk=int(tid))#类型
+    news = typeinfo.goodsinfo_set.order_by('-id')[0:2]#最新排序
     if sort == '1':  # 默认最新
         good_list = GoodsInfo.objects.filter(gtype_id=int(tid)).order_by('-id')
     elif sort == '2':  # 价格
@@ -51,7 +51,7 @@ def list(request, tid, pindex, sort):
         'paginator': paginator,
         'typeinfo': typeinfo,
         'sort': sort,
-        'news': news
+        'news': news,
     }
     return render(request, 'df_goods/list.html', context)
 

@@ -25,7 +25,7 @@ SECRET_KEY = 'qx#d%mx#1g3owb@w(*4aky-l2)#hrjm@nukp=f+b@c3i@er!-5'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     'df_user',
     'df_goods',
     'df_cart',
+    'df_order',
     'tinymce',
+    'haystack',
 ]
 
 MIDDLEWARE = [
@@ -58,7 +60,7 @@ ROOT_URLCONF = 'dailyfresh.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -76,15 +78,15 @@ WSGI_APPLICATION = 'dailyfresh.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
-
+# 数据库配置
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        "NAME":'tiantian',
-        "HOST":'localhost',
-        "USER":'root',
-        "PASSWORD":'123456',
-        "PORT":'3306',
+        "NAME": 'tiantian',
+        "HOST": 'localhost',
+        "USER": 'root',
+        "PASSWORD": '123456',
+        "PORT": '3306',
 
     }
 }
@@ -127,14 +129,28 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS=[
-    os.path.join(BASE_DIR,'static')
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
 ]
-MEDIA_ROOT = os.path.join(BASE_DIR,'static')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static')
 # MEDIA_ROOT = os.path.join(BASE_DIR,'static')
 
 TINYMCE_DEFAULT_CONFIG = {
-    'theme':'advanced',
-    'width':600,
-    'height':400,
+    'theme': 'advanced',
+    'width': 600,
+    'height': 400,
 }
+# 全文检索
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'df_goods.whoosh_backend.WhooshEngine',
+        # 使用whoosh引擎
+        # 索引文件路径
+        'PATH': os.path.join(BASE_DIR,'whoosh_index'),
+    }
+}
+# 指定每页显示的结果数量
+HAYSTACK_SEARCH_RESULTS_PER_PAGE = 6
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'  # 索引自动更新
+# HAYSTACK_DEFAULT_OPERATOR = 'OR'
+# 当修改，添加，删除数据时，索引会自动更新
